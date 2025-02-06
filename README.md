@@ -1,35 +1,64 @@
-# 🌟 Serverless Image Processing 🌟
+# 🌟 Serverless Image Processing with Azure Logic Apps & Shell Scripting
 
-![Azure Logic Apps](https://docs.microsoft.com/en-us/azure/logic-apps/media/logic-apps-overview-architecture.png)  
-*Azure Logic Apps Architecture*
+## 🚀 Project Overview
 
-## Overview
-This project implements a serverless image processing solution using **Azure Logic Apps**, **Azure Blob Storage**, and a custom **Linux shell script**. The system automates the workflow of resizing and watermarking images upon upload.
+This project automates image processing using Azure Logic Apps and Linux shell scripting. The workflow includes:
 
-## Technologies Used
-- **Azure Blob Storage** ![Azure Blob Storage](https://azurecomcdn.azureedge.net/mediahandler/files/resourcefiles/storage/hero/1-storage-hero.svg) : For storing raw and processed images.
-- **Azure Logic Apps** ![Azure Logic Apps](https://azurecomcdn.azureedge.net/mediahandler/files/resourcefiles/logicapps/hero/1-logic-apps-hero.svg) : To automate the image processing workflow.
-- **Flask** ![Flask](https://flask.palletsprojects.com/en/2.0.x/_images/flask-logo.png) : For creating an API that triggers the image processing script.
-- **ImageMagick** ![ImageMagick](https://imagemagick.org/script/images/imagemagick-logo.png) : A command-line tool for image processing tasks.
-- **Linux Shell Scripting** : For writing the image processing logic.
+- **Uploading images** to Azure Blob Storage.
+- A **Logic App** triggers a shell script when a new image is uploaded.
+- A **Linux-based script** processes the images (resize, watermark, etc.).
+- The processed images are stored in another Blob container.
 
-## Features
-- 🌐 **Automatic Image Processing** on upload.
-- 📏 **Resize Images** to specified dimensions.
-- 🌊 **Add Watermarks** to processed images.
-- 🔗 **Easy Integration** with Azure services.
+## 💡 Table of Contents
+1. [Project Requirements](#requirements)
+2. [Setup Instructions](#setup-instructions)
+   - [Step 1: Create Azure Blob Storage](#step-1-create-azure-blob-storage)
+   - [Step 2: Deploy a Linux VM (or ACI)](#step-2-deploy-a-linux-vm-or-aci)
+   - [Step 3: Create the Image Processing Script](#step-3-create-the-image-processing-script)
+   - [Step 4: Create the Flask App](#step-4-create-the-flask-app)
+   - [Step 5: Create the Logic App in Azure](#step-5-create-the-logic-app-in-azure)
+   - [Step 6: Testing the Workflow](#step-6-testing-the-workflow)
+3. [License](#license)
 
-## Project Structure
+## 🛠 Project Requirements
 
+- **Azure Subscription**
+- **Azure Storage Account**
+- **Azure Logic Apps**
+- **Linux VM or Azure Container Instances (ACI)**
+- **ImageMagick** for image processing
+- **Flask** for running the API
 
-## Getting Started
+## 📥 Setup Instructions
 
-### Prerequisites
-- Azure account with access to Blob Storage and Logic Apps.
-- A Linux Virtual Machine (VM) with the necessary tools installed (Flask, ImageMagick, etc.).
+### Step 1: Create Azure Blob Storage
 
-### Installation
-1. **Clone the repository**:
+1. **Create a Storage Account** in Azure:
+   - Go to the Azure Portal.
+   - Click on "Create a resource" > "Storage" > "Storage account".
+   - Fill in the required details and create the account.
+
+2. **Create Two Containers**:
+   - Go to your storage account.
+   - Click on "Containers" under the Data storage section.
+   - Create a container named `raw-images` (for original images).
+   - Create another container named `processed-images` (for processed images).
+
+### Step 2: Deploy a Linux VM (or ACI)
+
+1. **Create a Linux VM**:
+   - In the Azure Portal, click on "Create a resource" > "Compute" > "Virtual machine".
+   - Select your preferred Linux distribution and configure the VM settings.
+
+2. **Install Required Packages**:
+   - SSH into your Linux VM.
+   - Run the following command to install ImageMagick:
+
    ```bash
-   git clone https://github.com/search4akash/serverless-image-processing.git
-   cd serverless-image-processing
+   sudo apt update && sudo apt install imagemagick -y
+3. **Install Flask**:
+
+Run the following command to install Flask:
+   -pip install Flask
+
+### Step 3: Create a image processing script
