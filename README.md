@@ -171,6 +171,6 @@ This project automates image processing using Azure Logic Apps and Linux shell s
     <h2>📞 Contact</h2>
 </div>
 
-For any help or inquiries regarding this project, feel free to reach out to me at **your_email@example.com**!
+For any help or inquiries regarding this project, feel free to reach out to me at **search4akash@outlook.com**!
 
 ---
