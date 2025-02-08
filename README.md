@@ -104,7 +104,7 @@ This project automates image processing using Azure Logic Apps and Linux shell s
 
 1. **Upload an Image** to `raw-images`:
     ```bash
-    az storage blob upload --container-name raw-images --account-name myazurestorage --file sample.jpg
+    az storage blob upload --container-name raw-images --account-name store4serverless --file sample.jpg
     ```
 
 2. **Trigger the Logic App**:
