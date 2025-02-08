@@ -1,1 +1,4 @@
-Flask==2.1.2
+Flask==2.1.2              # Web framework for creating the API
+requests==2.26.0          # For making HTTP requests (if needed for API calls)
+azure-storage-blob==12.8.0 # Azure Blob Storage client library for Python
+azure-identity==1.7.0     # Azure Identity library for authentication
