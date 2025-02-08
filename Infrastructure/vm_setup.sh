@@ -4,7 +4,7 @@
 VM_NAME="SEARCH4AKASH"
 RESOURCE_GROUP="rg-serverless"
 LOCATION="eastus"
-IMAGE="UbuntuLTS"
+IMAGE="Ubuntu2204"
 SIZE="Standard_B1s"
 
 # Create a resource group
