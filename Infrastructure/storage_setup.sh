@@ -1,25 +1,22 @@
 #!/bin/bash
 
-# Azure Storage details
-STORAGE_ACCOUNT="store4sreverless"
-SOURCE_CONTAINER="raw-images"
-DEST_CONTAINER="processed-images"
-CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=myazurestorage;AccountKey=<your_account_key>"
+# Variables
+RESOURCE_GROUP="rg-serverless"
+LOCATION="eastus"
+STORAGE_ACCOUNT_NAME="store4sreverless"
+CONTAINER1="raw_images"
+CONTAINER2="processed_images"
 
-# Download images from Azure Blob Storage using the connection string
-mkdir -p images
-az storage blob download-batch -d images --account-name $STORAGE_ACCOUNT -s $SOURCE_CONTAINER --connection-string "$CONNECTION_STRING"
+# Create a resource group
+az group create --name $RESOURCE_GROUP --location $LOCATION
 
-# Process each image
-for image in images/*.jpg; do
-    filename=$(basename "$image")
+# Create a storage account with LRS replication and StorageV2 kind
+az storage account create --name $STORAGE_ACCOUNT_NAME --resource-group $RESOURCE_GROUP --location $LOCATION --sku Standard_LRS --kind StorageV2
 
-    # Resize and watermark
-    convert "$image" -resize 800x600 -gravity southeast -pointsize 30 -draw "text 10,10 'Search4akash'" "processed-$filename"
+# Create the first container
+az storage container create --name $CONTAINER1 --account-name $STORAGE_ACCOUNT_NAME --account-key $ACCOUNT_KEY
 
-    # Upload processed image
-    az storage blob upload --container-name $DEST_CONTAINER --account-name $STORAGE_ACCOUNT --file "processed-$filename"
+# Create the second container
+az storage container create --name $CONTAINER2 --account-name $STORAGE_ACCOUNT_NAME --account-key $ACCOUNT_KEY
 
-    echo "AKASH MAJUMDAR! The image has been Processed: $filename"
-done
-
+echo "SEARCH4AKASH! Storage account and containers created successfully."
