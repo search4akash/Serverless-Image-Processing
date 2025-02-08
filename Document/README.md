@@ -1,21 +1,8 @@
-# Serverless Image Processing with Azure Logic Apps & Shell Scripting
+# 🔱 Serverless Image Processing with Azure Logic Apps & Shell Scripting 🔱
 
-## 📂 Table of Contents
-- [Project Overview](#project-overview)
-- [Setup Instructions](#setup-instructions)
-  - [Step 1: Set Up Azure Blob Storage](#step-1-set-up-azure-blob-storage)
-  - [Step 2: Deploy a Linux VM](#step-2-deploy-a-linux-vm)
-  - [Step 3: Write the Image Processing Shell Script](#step-3-write-the-image-processing-shell-script)
-  - [Step 4: Set Up Azure Logic Apps](#step-4-set-up-azure-logic-apps)
-  - [Step 5: Set Up an API to Run the Script](#step-5-set-up-an-api-to-run-the-script)
-  - [Step 6: Test the System](#step-6-test-the-system)
-  - [Step 7: Automate with a Cron Job](#step-7-automate-with-a-cron-job)
-- [File Structure](#file-structure)
-- [License](#license)
-
----
-
-## 🔹 Project Overview
+<div align="center">
+    <h2>🔹 Project Overview</h2>
+</div>
 
 This project automates image processing using Azure Logic Apps and Linux shell scripting. The workflow includes:
 
@@ -29,60 +16,161 @@ This project automates image processing using Azure Logic Apps and Linux shell s
 
 ---
 
-## 🔹 Setup Instructions
+<div align="center">
+    <h2>📚 Table of Contents</h2>
+</div>
 
-### Step 1: Set Up Azure Blob Storage
-
-1. Create an **Azure Storage Account** with two containers:
-   - **raw-images** → Stores the original images.
-   - **processed-images** → Stores the processed images.
-
-### Step 2: Deploy a Linux VM
-
-1. Deploy a Linux VM using your preferred method.
-2. Ensure that you have the necessary packages installed (ImageMagick).
-
-### Step 3: Write the Image Processing Shell Script
-
-- You can find the script in the `scripts` folder:
-  - [`process_images.sh`](./scripts/process_images.sh)
-
-### Step 4: Set Up Azure Logic Apps
-
-- Create a Logic App that triggers the processing when a new image is uploaded to the `raw-images` container.
-
-### Step 5: Set Up an API to Run the Script
-
-- The API is implemented in:
-  - [`app.py`](./api/app.py)
-
-### Step 6: Test the System
-
-1. Upload an image to the `raw-images` container.
-2. The Logic App will trigger the HTTP request to the API, executing the script.
-
-### Step 7: Automate with a Cron Job
-
-- Schedule the script to run periodically using a cron job.
+- [Step 1: Set Up Azure Blob Storage](#step-1-set-up-azure-blob-storage)
+- [Step 2: Deploy a Linux VM (or Use ACI)](#step-2-deploy-a-linux-vm-or-use-aci)
+- [Step 3: Write the Image Processing Shell Script](#step-3-write-the-image-processing-shell-script)
+- [Step 4: Set Up Azure Logic Apps](#step-4-set-up-azure-logic-apps)
+- [Step 5: Set Up an API to Run the Script](#step-5-set-up-an-api-to-run-the-script)
+- [Step 6: Test the System](#step-6-test-the-system)
+- [📊 Summary](#summary)
+- [🎯 Learning Outcomes](#learning-outcomes)
+- [📚 Official Documentation](#official-documentation)
+- [📞 Contact](#contact)
 
 ---
 
-## 🔹 File Structure
+<div align="center">
+    <h2>Step 1: Set Up Azure Blob Storage</h2>
+</div>
 
-```plaintext
-📂 serverless-image-processing  
-│── 📂 scripts  
-│   ├── process_images.sh       # Shell script for image processing  
-│── 📂 api  
-│   ├── app.py                  # Flask API to trigger processing  
-│── 📂 infrastructure  
-│   ├── storage_setup.sh        # Script to create Azure Blob Storage  
-│   ├── vm_setup.sh             # Script to create Azure VM  
-│── 📂 docs  
-│   ├── README.md               # Project documentation  
-│   ├── architecture.png        # Architecture diagram (optional)  
-│── 📂 samples  
-│   ├── sample.jpg              # Sample image for testing  
-│── .gitignore                  # Ignore unnecessary files  
-│── requirements.txt            # Dependencies for the API  
-│── LICENSE                     # License file (optional)  
+- **Storage Setup Script**: [storage_setup.sh](infrastructure/storage_setup.sh)
+  - This script creates an **Azure Storage Account** with two containers:
+    - **raw-images** → Stores the original images.
+    - **processed-images** → Stores the processed images.
+
+---
+
+<div align="center">
+    <h2>Step 2: Deploy a Linux VM (or Use ACI)</h2>
+</div>
+
+- **VM Setup Script**: [vm_setup.sh](infrastructure/vm_setup.sh)
+  - This script creates an **Azure Linux VM** or sets up **Azure Container Instances (ACI)** for running the image processing script.
+
+---
+
+<div align="center">
+    <h2>Step 3: Write the Image Processing Shell Script</h2>
+</div>
+
+- **Image Processing Script**: [process_images.sh](scripts/process_images.sh)
+  - This script fetches images from **Blob Storage**, processes them, and uploads the processed images back to **Blob Storage**.
+
+---
+
+<div align="center">
+    <h2>Step 4: Set Up Azure Logic Apps</h2>
+</div>
+
+1. **Create a Logic App**:
+   - Go to the **Azure portal** and create a new Logic App.
+
+2. **Add Trigger: When a Blob is Added or Modified**:
+   - Choose the trigger **"When a blob is added or modified (V2)"**.
+   - Configure it to point to your **raw-images** container in your Azure Blob Storage.
+   - This trigger will activate the Logic App whenever a new image is uploaded or an existing image is updated.
+
+3. **Add Action: HTTP Request**:
+   - After the blob trigger, add a new action for the HTTP request.
+   - Choose the action **"HTTP"**.
+   - Set the method to **POST** and provide the URL for your Flask API endpoint (e.g., `http://<your-vm-ip>:8080/run-script`).
+   - In the body, you can include any relevant data if necessary (e.g., the name of the blob or any other parameters).
+
+4. **Add Trigger: When an HTTP Request is Received**:
+   - If you want to manually trigger the processing, add a second trigger by choosing **"When an HTTP request is received"**.
+   - This will allow you to invoke the Logic App via an HTTP request whenever you need to process the images.
+
+5. **Configure the Logic App**:
+   - Once you have set up both triggers, you can define the workflow further by connecting additional actions as needed, such as logging or sending notifications.
+
+---
+
+<div align="center">
+    <h2>Step 5: Set Up an API to Run the Script</h2>
+</div>
+
+- **API Script**: [app.py](api/app.py)
+  - This Flask API allows the Logic App to trigger the image processing script.
+
+---
+
+<div align="center">
+    <h2>Step 6: Test the System</h2>
+</div>
+
+1. **Upload an Image** to `raw-images`:
+    ```bash
+    az storage blob upload --container-name raw-images --account-name myazurestorage --file sample.jpg
+    ```
+
+2. **Trigger the Logic App**:
+   - This is automatically triggered by the blob upload.
+
+3. **Test the Flask API Manually** (if needed):
+    ```bash
+    curl -X POST http://<your-vm-ip>:8080/run-script
+    ```
+
+4. **Execute the Image Processing Script Manually** (for testing):
+    ```bash
+    cd scripts
+    ./process_images.sh
+    ```
+
+5. **Check the `processed-images` Container** to see if the processed image appears.
+
+---
+
+<div align="center">
+    <h2>📊 Summary</h2>
+</div>
+
+| Step | Task | Files |
+| --- | --- | --- |
+| 1️⃣ | Set up Azure Blob Storage | [storage_setup.sh](infrastructure/storage_setup.sh) |
+| 2️⃣ | Deploy Linux VM / ACI | [vm_setup.sh](infrastructure/vm_setup.sh) |
+| 3️⃣ | Write Shell Script | [process_images.sh](scripts/process_images.sh) |
+| 4️⃣ | Set Up Logic App | Azure Portal |
+| 5️⃣ | Create API to Trigger Script | [app.py](api/app.py) |
+| 6️⃣ | Test the Workflow | Azure CLI |
+
+---
+
+<div align="center">
+    <h2>🎯 Learning Outcomes</h2>
+</div>
+
+✅ Hands-on **Azure Logic Apps** for automation.
+
+✅ Advanced **Bash scripting** for **image processing**.
+
+✅ Real-world **Azure Blob Storage Management**.
+
+✅ Deployment of **serverless solutions** using **ACI or VM**.
+
+✅ Secure **VM automation with Flask APIs & HTTP triggers**.
+
+---
+
+<div align="center">
+    <h2>📚 Official Documentation</h2>
+</div>
+
+- [Azure Logic Apps Documentation](https://docs.microsoft.com/en-us/azure/logic-apps/) 📄
+- [Azure Blob Storage Documentation](https://docs.microsoft.com/en-us/azure/storage/blobs/) 📄
+- [Flask Documentation](https://flask.palletsprojects.com/) 📄
+- [Bash Scripting Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/) 📄
+
+---
+
+<div align="center">
+    <h2>📞 Contact</h2>
+</div>
+
+For any help or inquiries regarding this project, feel free to reach out to me at **search4akash@outlook.com**!
+
+---
