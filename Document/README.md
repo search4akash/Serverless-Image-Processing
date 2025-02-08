@@ -1,4 +1,4 @@
-# 🔱 Serverless Image Processing with Azure Logic Apps & Shell Scripting 🔱
+# 🌟 Serverless Image Processing with Azure Logic Apps & Shell Scripting
 
 <div align="center">
     <h2>🔹 Project Overview</h2>
@@ -57,7 +57,7 @@ This project automates image processing using Azure Logic Apps and Linux shell s
     <h2>Step 3: Write the Image Processing Shell Script</h2>
 </div>
 
-- **Image Processing Script**: [process_images.sh](scripts/process_images.sh)
+- **Image Processing Script**: [Document/scripts/process_images.sh](Document/scripts/process_images.sh)
   - This script fetches images from **Blob Storage**, processes them, and uploads the processed images back to **Blob Storage**.
 
 ---
@@ -93,7 +93,7 @@ This project automates image processing using Azure Logic Apps and Linux shell s
     <h2>Step 5: Set Up an API to Run the Script</h2>
 </div>
 
-- **API Script**: [app.py](api/app.py)
+- **API Script**: [Document/API/app.py](Document/API/app.py)
   - This Flask API allows the Logic App to trigger the image processing script.
 
 ---
@@ -117,7 +117,7 @@ This project automates image processing using Azure Logic Apps and Linux shell s
 
 4. **Execute the Image Processing Script Manually** (for testing):
     ```bash
-    cd scripts
+    cd Document/scripts
     ./process_images.sh
     ```
 
@@ -131,11 +131,11 @@ This project automates image processing using Azure Logic Apps and Linux shell s
 
 | Step | Task | Files |
 | --- | --- | --- |
-| 1️⃣ | Set up Azure Blob Storage | [storage_setup.sh](infrastructure/storage_setup.sh) |
-| 2️⃣ | Deploy Linux VM / ACI | [vm_setup.sh](infrastructure/vm_setup.sh) |
-| 3️⃣ | Write Shell Script | [process_images.sh](scripts/process_images.sh) |
+| 1️⃣ | Set up Azure Blob Storage | [storage_setup.sh](Infrastructure/storage_setup.sh) |
+| 2️⃣ | Deploy Linux VM / ACI | [vm_setup.sh](Infrastructure/vm_setup.sh) |
+| 3️⃣ | Write Shell Script | [process_images.sh](Document/scripts/process_images.sh) |
 | 4️⃣ | Set Up Logic App | Azure Portal |
-| 5️⃣ | Create API to Trigger Script | [app.py](api/app.py) |
+| 5️⃣ | Create API to Trigger Script | [app.py](Document/API/app.py) |
 | 6️⃣ | Test the Workflow | Azure CLI |
 
 ---
@@ -171,6 +171,6 @@ This project automates image processing using Azure Logic Apps and Linux shell s
     <h2>📞 Contact</h2>
 </div>
 
-For any help or inquiries regarding this project, feel free to reach out to me at **search4akash@outlook.com**!
+For any help or inquiries regarding this project, feel free to reach out to me at **your_email@example.com**!
 
 ---
