@@ -48,7 +48,7 @@ This project automates image processing using Azure Logic Apps and Linux shell s
     <h2>Step 2: Deploy a Linux VM (or Use ACI)</h2>
 </div>
 
-- **VM Setup Script**: [vm_setup.sh](infrastructure/vm_setup.sh)
+- **VM Setup Script**: [vm_setup.sh](Infrastructure/vm_setup.sh)
   - This script creates an **Azure Linux VM** or sets up **Azure Container Instances (ACI)** for running the image processing script.
 
 ---
