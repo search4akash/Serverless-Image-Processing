@@ -57,7 +57,7 @@ This project automates image processing using Azure Logic Apps and Linux shell s
     <h2>Step 3: Write the Image Processing Shell Script</h2>
 </div>
 
-- **Image Processing Script**: [Document/scripts/process_images.sh](Document/scripts/process_images.sh)
+- **Image Processing Script**: [Infrastructure/process_images.sh](Infrastructure/process_images.sh)
   - This script fetches images from **Blob Storage**, processes them, and uploads the processed images back to **Blob Storage**.
 
 ---
@@ -93,7 +93,7 @@ This project automates image processing using Azure Logic Apps and Linux shell s
     <h2>Step 5: Set Up an API to Run the Script</h2>
 </div>
 
-- **API Script**: [Document/API/app.py](Document/API/app.py)
+- **API Script**: [Infrastructure/app.py](Infrastructure/app.py)
   - This Flask API allows the Logic App to trigger the image processing script.
 
 ---
@@ -117,7 +117,7 @@ This project automates image processing using Azure Logic Apps and Linux shell s
 
 4. **Execute the Image Processing Script Manually** (for testing):
     ```bash
-    cd Document/scripts
+    cd Infrastructure
     ./process_images.sh
     ```
 
@@ -133,9 +133,9 @@ This project automates image processing using Azure Logic Apps and Linux shell s
 | --- | --- | --- |
 | 1️⃣ | Set up Azure Blob Storage | [storage_setup.sh](Infrastructure/storage_setup.sh) |
 | 2️⃣ | Deploy Linux VM / ACI | [vm_setup.sh](Infrastructure/vm_setup.sh) |
-| 3️⃣ | Write Shell Script | [process_images.sh](Document/scripts/process_images.sh) |
+| 3️⃣ | Write Shell Script | [process_images.sh](Infrastructure/process_images.sh) |
 | 4️⃣ | Set Up Logic App | Azure Portal |
-| 5️⃣ | Create API to Trigger Script | [app.py](Document/API/app.py) |
+| 5️⃣ | Create API to Trigger Script | [app.py](Infrastructure/app.py) |
 | 6️⃣ | Test the Workflow | Azure CLI |
 
 ---
