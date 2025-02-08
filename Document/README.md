@@ -37,7 +37,7 @@ This project automates image processing using Azure Logic Apps and Linux shell s
     <h2>Step 1: Set Up Azure Blob Storage</h2>
 </div>
 
-- **Storage Setup Script**: [storage_setup.sh](Infrastructure/storage_setup.sh)
+- **Storage Setup Script**: [Infrastructure/storage_setup.sh](Infrastructure/storage_setup.sh)
   - This script creates an **Azure Storage Account** with two containers:
     - **raw-images** → Stores the original images.
     - **processed-images** → Stores the processed images.
