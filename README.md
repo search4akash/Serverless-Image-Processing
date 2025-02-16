@@ -174,4 +174,3 @@ This project automates image processing using Azure Logic Apps and Linux shell s
 For any help or inquiries regarding this project, feel free to reach out to me at **search4akash@outlook.com**!
 
 ---
-![Architecture Diagram](https://your-direct-image-url.png)
